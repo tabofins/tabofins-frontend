@@ -9,7 +9,7 @@ const ECO = [
   { emoji: "🌍", label: "Cross-Border" },
   { emoji: "🔒", label: "Escrow Shield" },
   { emoji: "💱", label: "P2P Swap" },
-  { emoji: "🪪", label: "KYC Identity" },
+  { emoji: "🪪", label: "Saving Vault" },
   { emoji: "₿", label: "Crypto + Fiat" },
 ];
 

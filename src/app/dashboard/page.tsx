@@ -500,8 +500,8 @@ export default function DashboardPage() {
           {[
             {
               icon: "💡",
-              title: "Diversify Currency",
-              text: "83% of your assets are in USDT. Consider spreading across XAF.",
+              title: "Portfolio Concentration",
+              text: "83% of your assets are currently held in USDT, making it your largest single holding.",
               color: "var(--gold2)",
             },
             {

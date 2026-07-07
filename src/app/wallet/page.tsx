@@ -42,6 +42,23 @@ export default function WalletPage() {
         sub="Manage your multi-currency balances and transactions."
       />
 
+      {/* Quick actions */}
+      <GlassCard hover={false} style={{ marginBottom: "2rem" }}>
+        <SectionHeader title="Quick Actions" />
+        <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap" }}>
+          <ActionButton variant="primary" onClick={() => open("deposit")}>
+            + Deposit
+          </ActionButton>
+          <ActionButton variant="ghost" onClick={() => open("withdraw")}>
+            Withdraw
+          </ActionButton>
+          <ActionButton variant="ghost" onClick={() => open("transfer")}>
+            Send Money
+          </ActionButton>
+          <ActionButton variant="ghost">Swap Currency</ActionButton>
+        </div>
+      </GlassCard>
+
       {/* Currency Cards */}
       <div
         style={{
@@ -141,23 +158,6 @@ export default function WalletPage() {
           );
         })}
       </div>
-
-      {/* Quick actions */}
-      <GlassCard hover={false} style={{ marginBottom: "2rem" }}>
-        <SectionHeader title="Quick Actions" />
-        <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap" }}>
-          <ActionButton variant="primary" onClick={() => open("deposit")}>
-            + Deposit
-          </ActionButton>
-          <ActionButton variant="ghost" onClick={() => open("withdraw")}>
-            Withdraw
-          </ActionButton>
-          <ActionButton variant="ghost" onClick={() => open("transfer")}>
-            Send Money
-          </ActionButton>
-          <ActionButton variant="ghost">Swap Currency</ActionButton>
-        </div>
-      </GlassCard>
 
       {/* History */}
       <GlassCard hover={false}>
@@ -305,7 +305,7 @@ export default function WalletPage() {
                   </FormField>
                   {modal === "transfer" && (
                     <FormField label="Recipient">
-                      <TFInput placeholder="email or +237..." />
+                      <TFInput placeholder="email, userid or +237..." />
                     </FormField>
                   )}
                   {modal !== "transfer" && (
