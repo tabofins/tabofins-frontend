@@ -21,6 +21,47 @@ const TYPE_META: Record<
   security: { icon: "🛡️", label: "Security", badgeVariant: "red" },
   transfer: { icon: "↗️", label: "Transfer", badgeVariant: "blue" },
   system: { icon: "📢", label: "System", badgeVariant: "muted" },
+  kyc: {
+    icon: "🪪",
+    label: "KYC",
+    badgeVariant: "blue",
+  },
+
+  p2p: {
+    icon: "🔄",
+    label: "P2P",
+    badgeVariant: "green",
+  },
+
+  marketplace: {
+    icon: "🛍️",
+    label: "Marketplace",
+    badgeVariant: "gold",
+  },
+
+  referral: {
+    icon: "🎁",
+    label: "Referral",
+    badgeVariant: "green",
+  },
+
+  savings: {
+    icon: "🔒",
+    label: "Savings",
+    badgeVariant: "blue",
+  },
+
+  dispute: {
+    icon: "⚖️",
+    label: "Dispute",
+    badgeVariant: "red",
+  },
+
+  crossborder: {
+    icon: "🌍",
+    label: "Cross Border",
+    badgeVariant: "blue",
+  },
 };
 
 export default function NotificationsPage() {
@@ -67,6 +108,13 @@ export default function NotificationsPage() {
             "payout",
             "security",
             "transfer",
+            "crossborder",
+            "p2p",
+            "marketplace",
+            "kyc",
+            "savings",
+            "referral",
+            "dispute",
             "system",
           ] as const
         ).map((f) => (
