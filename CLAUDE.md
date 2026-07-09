@@ -300,13 +300,81 @@ Receipt page
 
 Marketplace
 
-Inspired by Facebook Marketplace.
+these different domain under market place 1. *Goods ( physical products)*
+Electronics
+Phones & Accessories
+Fashion
+Home & Furniture
+Beauty & Cosmetics 
+Groceries
+Vehicles
+Property
+Agricultural Products
+Books
+
+2.  *Services* 
+
+Hairdressing
+Barbing
+Cleaning
+Electrical Repairs
+Plumbing
+Driving
+Delivery
+Mechanics
+Photography
+Videography
+Event Planning
+Catering
+Tailoring
+Fitness Trainers
+Licenced nurses3. 🎓 *Learning* 
+
+Home Tutors
+Online Courses
+E-Books
+Driving Schools
+
+
+4. 💼 *Jobs & Gigs*
+
+Full-time Jobs
+Part-time Jobs
+One-time Tasks
+Freelance Projects
+
+
+5. 🏠 *Property* 
+
+Houses for Rent
+Houses for Sale
+Land
+Office Spaces
+Short Stays
+Vacation Rentals
+Warehouses6. 🚗 *Mobility/Transportation services:*
+
+Car Rental
+Bike Rental
+Truck Hire
+Logistics
+Moving Services
+
+
+7. 🎫 *Events & Tickets* 
+
+Concerts
+Conferences
+Sports Events
+Cinema
+Bus Tickets
+Flight Bookings
 
 Features
 
 Browse products
 
-Categories
+Categories the categories were given above
 
 Search
 
@@ -320,7 +388,7 @@ Seller rating
 
 Related products
 
-Image gallery
+Image gallery/ video 5mins max describing what you do 
 
 Favourite products
 
