@@ -82,12 +82,7 @@ export default function WalletPage() {
             <ActionButton variant="ghost" onClick={() => openModal("connect")}>
               🔗 Connect External
             </ActionButton>
-            <ActionButton
-              variant="primary"
-              onClick={() => openModal("deposit")}
-            >
-              + Deposit
-            </ActionButton>
+            
           </div>
         }
       />
