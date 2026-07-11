@@ -77,7 +77,7 @@ export function getRate(from: string, to: string): number {
 
 // ── TYPES ─────────────────────────────────────────────────────────────────
 
-export type CurrencyCode = "XAF" | "NGN" | "USDT";
+export type CurrencyCode = "XAF" | "NGN" | "USDT" | "GHS";
 export type TxStatus = "completed" | "pending" | "failed" | "cancelled";
 export type KYCStatus = "verified" | "pending" | "rejected" | "unverified";
 export type NjangiStatus = "active" | "completed" | "pending" | "paused";
@@ -1177,7 +1177,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
     { rank: 3, name: "Fatou Diallo", avatar: "FD", referrals: 29, earnings: 145_000, currency: "XAF", badge: "🥉", isMe: false },
     { rank: 4, name: "Pierre Fon", avatar: "PF", referrals: 22, earnings: 110_000, currency: "XAF", badge: "🏅", isMe: false },
     { rank: 5, name: "Brice Ngum", avatar: "BN", referrals: 18, earnings: 90_000, currency: "XAF", badge: "🏅", isMe: false },
-    { rank: 11, name: "Amara Tanko", avatar: "AT", referrals: 12, earnings: 60_000, currency: "XAF", badge: "🎖️", isMe: true },
+    { rank: 11, name: "Tabotino J.", avatar: "TJ", referrals: 12, earnings: 60_000, currency: "XAF", badge: "🎖️", isMe: true },
 ];
 
 // ── KYC ───────────────────────────────────────────────────────────────────
@@ -1185,7 +1185,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
 export interface KYCStep {
     id: string;
     label: string;
-    status: "completed" | "pending" | "rejected" | "not_started";
+    status: "completed" | "approved" | "pending" | "rejected" | "not_started";
     updatedAt: string | null;
     note?: string;
 }
@@ -1223,7 +1223,7 @@ export const mockKYCSteps: KYCStep[] = [
 export const mockKYCQueue: KYCDoc[] = [
     { id: "kyc_001", userId: "usr_020", userName: "Emmanuel Tah", userAvatar: "ET", userEmail: "emmanuel@gmail.com", userPhone: "+237 677 100 001", submittedAt: "2025-06-04T07:00:00Z", status: "pending", idType: "National ID", country: "Cameroon", idFrontEmoji: "🪪", selfieEmoji: "🤳", address: "Akwa, Douala, Cameroon", riskScore: 12 },
     { id: "kyc_002", userId: "usr_021", userName: "Blessing Okafor", userAvatar: "BO", userEmail: "blessing@gmail.com", userPhone: "+234 801 200 002", submittedAt: "2025-06-04T06:30:00Z", status: "pending", idType: "Passport", country: "Nigeria", idFrontEmoji: "🛂", selfieEmoji: "🤳", address: "Victoria Island, Lagos", riskScore: 8 },
-    { id: "kyc_003", userId: "usr_022", userName: "Fatima Diallo", userAvatar: "FD", userEmail: "fatima@gmail.com", userPhone: "+221 77 300 003", submittedAt: "2025-06-03T22:00:00Z", reviewedAt: "2025-06-04T08:00:00Z", status: "approved", idType: "National ID", country: "Senegal", idFrontEmoji: "🪪", selfieEmoji: "🤳", address: "Plateau, Dakar, Senegal", reviewedBy: "Agent Kalu", riskScore: 5 },
+    { id: "kyc_003", userId: "usr_022", userName: "Fatima Diallo", userAvatar: "FD", userEmail: "fatima@gmail.com", userPhone: "+221 77 300 003", submittedAt: "2025-06-03T22:00:00Z", reviewedAt: "2025-06-04T08:00:00Z", status: "pending", idType: "National ID", country: "Senegal", idFrontEmoji: "🪪", selfieEmoji: "🤳", address: "Plateau, Dakar, Senegal", reviewedBy: "Agent Kalu", riskScore: 5 },
     { id: "kyc_004", userId: "usr_023", userName: "Kevin Njoku", userAvatar: "KN", userEmail: "kevin@gmail.com", userPhone: "+234 802 400 004", submittedAt: "2025-06-03T18:00:00Z", reviewedAt: "2025-06-04T07:00:00Z", status: "rejected", idType: "Driver License", country: "Nigeria", idFrontEmoji: "🪪", selfieEmoji: "🤳", address: "Ikeja, Lagos, Nigeria", reviewedBy: "Agent Kalu", rejectReason: "ID image blurry. Please resubmit.", riskScore: 22 },
     { id: "kyc_005", userId: "usr_024", userName: "Aisha Bello", userAvatar: "AB", userEmail: "aisha@gmail.com", userPhone: "+234 803 500 005", submittedAt: "2025-06-04T09:00:00Z", status: "pending", idType: "National ID", country: "Nigeria", idFrontEmoji: "🪪", selfieEmoji: "🤳", address: "Abuja, FCT, Nigeria", riskScore: 6 },
     { id: "kyc_006", userId: "usr_025", userName: "Kofi Mensah", userAvatar: "KM", userEmail: "kofi@gmail.com", userPhone: "+233 244 600 006", submittedAt: "2025-06-04T05:00:00Z", status: "pending", idType: "Passport", country: "Ghana", idFrontEmoji: "🛂", selfieEmoji: "🤳", address: "East Legon, Accra, Ghana", riskScore: 3 },
