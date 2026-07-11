@@ -1,761 +1,420 @@
-text
-IMPORTANT:
-
-Do NOT generate bash scripts.
-Do NOT generate Python scripts.
-Do NOT generate shell commands that create files.
-
-Instead, output the COMPLETE CONTENT of each file.
-
-For every file:
-
-1. Show the relative file path.
-2. Then show the complete code.
-3. Move to the next file.
-
-Example:
-
-src/app/p2p/page.tsx
-
-```tsx
-// complete code here
-````
-
-Then continue to the next file.
-
-Never output automation scripts.
-Never output mkdir commands.
-Never output Python.
-Never output Bash.
-
-Assume I am manually creating the files in VS Code.
-
-You are the lead frontend engineer for TaboFins.
-
-IMPORTANT:
-
-Do NOT redesign the application.
-
-The landing page, authentication modal, dashboard shell, cards, colors, gradients, typography, spacing, glassmorphism, shadows, animations, sidebar, navbar, and overall visual language are already completed.
-
-Your responsibility is to EXTEND the existing design system.
-
-Every new page must look like it was designed by the same designer.
-
-Maintain COMPLETE consistency with:
-
-• Dark premium fintech appearance
-• Blue + Gold accent colors
-• Glassmorphism
-• Soft shadows
-• Rounded cards
-• Gradient buttons
-• Premium animations
-• Transparent layered UI
-• Existing spacing
-• Existing typography
-• Existing dashboard layout
-
-Never introduce another design language.
-
---------------------------------------------------
-
-PROJECT
-
-TaboFins
-
-A digital cooperative finance ecosystem for Africa combining
-
-• Digital Njangi
-• Group Savings
-• Wallets
-• P2P
-• Cross-border transfers
-• Marketplace
-• Escrow
-• KYC
-• Community Finance
-
---------------------------------------------------
-
-IMPORTANT
-
-DO NOT TOUCH
-
-Landing Page
-
-Login
-
-Signup
-
-Dashboard layout
-
-Sidebar
-
-Navbar
-
-Existing components
-
-Only extend them.
-
-Never break existing code.
-
---------------------------------------------------
-
-ONLY BUILD FRONTEND. for now
-
-Ignore backend.
-
-Ignore APIs.
-
-Ignore Prisma.
-
-Ignore authentication logic.
-
-Use mock data where necessary.
-
---------------------------------------------------
-
-Every page must already be connected to routing.
-
-Every page must be fully responsive.
-
-Desktop
-
-Tablet
-
-Mobile
-
-Everything must work.
-
---------------------------------------------------
-
-Create reusable components.
-
-Never duplicate code.
-
---------------------------------------------------
-
-Keep using:
-
-Next.js App Router
-
-TypeScript
-
-Existing component structure
-
-Existing folder structure
-
---------------------------------------------------
-
-PHASE 1
-
-Improve dashboard consistency.
-
-Fix sidebar.
-
-The sidebar MUST remain visible across every authenticated page.
-
-Dashboard
-
-Wallet
-
-Njangi
-
-Savings
-
-Marketplace
-
-P2P
-
-Cross Border
-
-Notifications
-
-Profile
-
-Settings
-
-
-
-Everything inside the authenticated application uses exactly the same dashboard shell.
-
---------------------------------------------------
-
-PAGES TO ADD
-
-1.
-
-P2P Exchange
-
-Design inspired by Binance P2P.
-
-NOT copying Binance.
-
-Inspired by the workflow.
-
-Include:
-
-Buy tab
-
-Sell tab
-
-Currency selector
-
-XAF
-
-NGN
-
-USDT
-
-Filters
-
-Payment methods
-
-Verified users
-
-Online status
-
-Ratings
-
-Completion rate
-
-Orders
-
-Trade history
-
-Escrow status
-
-Order status
-
-Transaction details
-
-Order details page
-
-Trade progress timeline
-
-Buyer confirmation
-
-Seller confirmation
-
-Release funds
-
-Appeal button
-
-Chat panel between buyer and seller
-
-Dispute page
-
-Dispute timeline
-
-Evidence upload placeholder
-
-Moderator messages
-
-Trade completion screen
-
-Responsive tables
-
-Premium cards
-
---------------------------------------------------
-
-2.
-
-Cross Border
-
-Inspired by Binance Send.
-
-Features
-
-Country selector
-
-Currency selector
-
-Live exchange preview
-
-Fee preview
-
-Estimated arrival
-
-Transaction timeline
-
-Transfer history
-
-Beneficiary management
-
-Recipient list
-
-Saved recipients
-
-Recent transfers
-
-Status tracking
-
-Receipt page
-
---------------------------------------------------
-
-3.
-
-Marketplace
-
-these different domain under market place 1. *Goods ( physical products)*
-Electronics
-Phones & Accessories
-Fashion
-Home & Furniture
-Beauty & Cosmetics 
-Groceries
-Vehicles
-Property
-Agricultural Products
-Books
-
-2.  *Services* 
-
-Hairdressing
-Barbing
-Cleaning
-Electrical Repairs
-Plumbing
-Driving
-Delivery
-Mechanics
-Photography
-Videography
-Event Planning
-Catering
-Tailoring
-Fitness Trainers
-Licenced nurses3. 🎓 *Learning* 
-
-Home Tutors
-Online Courses
-E-Books
-Driving Schools
-
-
-4. 💼 *Jobs & Gigs*
-
-Full-time Jobs
-Part-time Jobs
-One-time Tasks
-Freelance Projects
-
-
-5. 🏠 *Property* 
-
-Houses for Rent
-Houses for Sale
-Land
-Office Spaces
-Short Stays
-Vacation Rentals
-Warehouses6. 🚗 *Mobility/Transportation services:*
-
-Car Rental
-Bike Rental
-Truck Hire
-Logistics
-Moving Services
-
-
-7. 🎫 *Events & Tickets* 
-
-Concerts
-Conferences
-Sports Events
-Cinema
-Bus Tickets
-Flight Bookings
-
-Features
-
-Browse products
-
-Categories the categories were given above
-
-Search
-
-Filters
-
-Product details
-
-Seller profile
-
-Seller rating
-
-Related products
-
-Image gallery/ video 5mins max describing what you do 
-
-Favourite products
-
-My listings
-
-Create listing
-
-Edit listing
-
-Delete listing
-
-Chat with seller
-
-Offer button
-
-Report listing
-
---------------------------------------------------
-
-4.
-
-Chat System
-
-Reusable.
-
-Works across:
-
-Marketplace
-
-Njangi Groups
-
-P2P
-
-Cross Border
-
-Features
-
-Conversation list
-
-Unread badge
-
-Typing indicator
-
-Online status
-
-Image placeholder
-
-File placeholder
-
-Message timestamps
-
-Pinned messages
-
-Group chat
-
-Private chat
-
-Search messages
-
---------------------------------------------------
-
-5.
-
-Njangi Improvements
-
-To the already existing Njangi page include
-
-
-Wallet balance
-
-Reserve wallet
-
-Penalty log
-
-Group chat
-Admin actions
-
-Conflict Resolution page
-
-Conflict timeline
-
-Pause Njangi 
-
-Resume Njangi
-
-Contribution reminders
-
-Penalty history
-
---------------------------------------------------
-
-Penalty Logic UI
-
-Display
-
-5% penalty
-
-Show breakdown
-
-30%
-
-System
-
-30%
-
-Beneficiary
-
-40%
-
-Reserve wallet
-
-Reserve wallet money is distributed to all members at the end of the njangi when last person eats
-
-Only frontend visualization.
-
---------------------------------------------------
-
-6. To the existing savings structure adjust it like this 
-
-Personal Savings
-
-Manual deduction
-
-Automatic deduction
-
-Lock duration selector
-
-Interest preview
-
-Withdrawal preview
-
-Penalty preview
-
-Early withdrawal warning
-
-Group Savings
-
-Members
-
-Goal
-
-Locked duration
-
-Progress
-
-Withdrawals
-
-Contribution schedule
-
-Leaving group warning
-
-Display:
-
-Leaving group
-
-50% forfeiture
-
-Half goes to members
-
-Half goes to system
-
-UI only.
-
---------------------------------------------------
-
-7. to the existing wallet structure add
-
-Create wallet
-
-Connect external wallet
-
-Wallet balances
-
-Live conversion
-
-Instead of approximate USD
-
-Display real-time exchange placeholder.
-
-Supported
-
-XAF
-
-NGN
-
-USDT
-
-Wallet activity
-
-Transaction history (edit transaction history such that it is only vsible when the user clicks on the button)
-
-
-
---------------------------------------------------
-
-8.
-
-KYC
-
-User side
-
-Verification status
-
-Upload ID
-
-Upload selfie
-
-Address
-
-Phone verification
-
-Email verification
-
-Progress tracker
-
-Approval pending
-
-Rejected
-
-Approved
-
---------------------------------------------------
-
-9.
-
-Front Desk Dashboard
-
-Separate page.
-
-Used by verification officers.
-
-Queue
-
-Pending KYC
-
-Approve
-
-Reject
-
-Preview documents
-
-Search
-
-Filter
-
-Verification history
-
---------------------------------------------------
-
-10. Add the referrals to the already existing profile page
-
-Referral System
-
-Referral dashboard
-
-Referral code
-
-Referral link
-
-Invite friends
-
-Referral tree
-
-Rewards
-
-Commission history
-
-Leaderboard
-
---------------------------------------------------
-
-11. To the already existing Notifications just add this ones
-
-Grouped notifications
-
-P2P
-
-Marketplace
-
-Transfers
-
-Referral
-
---------------------------------------------------
-
-12. This is on the signup page please adjust the signup page to have a section for terms and conditions 
-
-Terms & Conditions
-
-Beautiful readable page.
-
-Search
-
-Table of contents
-
-Sticky navigation
-
-Privacy
-
-Community rules
-
-KYC
-
-Escrow
-
-Disputes
-
---------------------------------------------------
-
-13.
-
-Settings
-
-Theme
-
-Language
-
-Currency
-
-Notifications
-
-Security
-
-Devices
-
-Password
-
-Delete account
-
---------------------------------------------------
-
-Throughout the application use realistic financial dashboards.
-
-Never leave blank pages.
-
-Every page should feel production ready.
-
---------------------------------------------------
-
-OUTPUT FORMAT
-
-Do NOT generate everything in one response.
-
-Generate one complete module at a time.
-
-Each module must include:
-
-Folder structure
-
-Components
-
-Pages
-
-Routing
-
-Imports
-
-Exports
-
-Styling
-
-Reusable components
-
-Before moving to the next module ensure the previous module is complete.
-
-Never regenerate existing files unnecessarily.
-
-Always extend the current codebase.
-
-Maintain 100% design consistency with the existing TaboFins frontend.
+"use client";
+import { useState } from "react";
+import {
+  mockBalances,
+  mockTransactions,
+  formatCurrency,
+  timeAgo,
+} from "@/src/lib/data";
+import {
+  GlassCard,
+  PageHeader,
+  ActionButton,
+  Badge,
+  Modal,
+  FormField,
+  TFInput,
+  TFSelect,
+  SectionHeader,
+} from "@/src/components/shared/UI";
+
+type MT = "deposit" | "withdraw" | "transfer" | null;
+
+export default function WalletPage() {
+  const [modal, setModal] = useState<MT>(null);
+  const [filter, setFilter] = useState<"all" | "credit" | "debit">("all");
+  const [step, setStep] = useState(1);
+  const [done, setDone] = useState(false);
+
+  const filtered = mockTransactions.filter(
+    (tx) => filter === "all" || tx.type === filter,
+  );
+  function open(t: MT) {
+    setModal(t);
+    setStep(1);
+    setDone(false);
+  }
+
+  return (
+    <div>
+      <PageHeader
+        title="Wallet"
+        sub="Manage your multi-currency balances and transactions."
+      />
+
+      {/* Quick actions */}
+      <GlassCard hover={false} style={{ marginBottom: "2rem" }}>
+        <SectionHeader title="Quick Actions" />
+        <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap" }}>
+          <ActionButton variant="primary" onClick={() => open("deposit")}>
+            + Deposit
+          </ActionButton>
+          <ActionButton variant="ghost" onClick={() => open("withdraw")}>
+            Withdraw
+          </ActionButton>
+          <ActionButton variant="ghost" onClick={() => open("transfer")}>
+            Send Money
+          </ActionButton>
+          <ActionButton variant="ghost">Swap Currency</ActionButton>
+        </div>
+      </GlassCard>
+
+      {/* Currency Cards */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))",
+          gap: "1.25rem",
+          marginBottom: "2rem",
+        }}
+      >
+        {mockBalances.map((b) => {
+          const accent =
+            b.currency === "XAF"
+              ? "var(--gold2)"
+              : b.currency === "NGN"
+                ? "var(--green)"
+                : "#7eb8ff";
+          const glow =
+            b.currency === "XAF"
+              ? "rgba(240,180,41,.2)"
+              : b.currency === "NGN"
+                ? "rgba(0,229,160,.2)"
+                : "rgba(26,108,255,.2)";
+          return (
+            <div
+              key={b.currency}
+              style={{
+                padding: "1.5rem",
+                background: "var(--card-bg)",
+                border: "1px solid var(--glass-border)",
+                borderRadius: 20,
+                backdropFilter: "blur(16px)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: -30,
+                  right: -30,
+                  width: 110,
+                  height: 110,
+                  borderRadius: "50%",
+                  background: `radial-gradient(circle,${glow},transparent 70%)`,
+                  pointerEvents: "none",
+                }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: "1rem",
+                }}
+              >
+                <div
+                  style={{
+                    width: 42,
+                    height: 42,
+                    borderRadius: 12,
+                    background: `radial-gradient(circle,${glow},transparent 80%)`,
+                    border: `1px solid ${accent}55`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "Syne",
+                    fontWeight: 800,
+                    fontSize: "0.72rem",
+                    color: accent,
+                  }}
+                >
+                  {b.currency}
+                </div>
+                <span
+                  style={{
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                    color: b.change24h >= 0 ? "var(--green)" : "#ff6b6b",
+                  }}
+                >
+                  {b.change24h >= 0 ? "↑" : "↓"} {Math.abs(b.change24h)}% 24h
+                </span>
+              </div>
+              <div
+                style={{
+                  fontFamily: "Syne",
+                  fontSize: "1.65rem",
+                  fontWeight: 800,
+                  marginBottom: "0.3rem",
+                }}
+              >
+                {formatCurrency(b.amount, b.currency)}
+              </div>
+              <div style={{ fontSize: "0.75rem", color: "var(--muted)" }}>
+                approx. ${b.usdEquivalent.toLocaleString()} USD
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* History */}
+      <GlassCard hover={false}>
+        <SectionHeader
+          title="Transaction History"
+          action={
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              {(["all", "credit", "debit"] as const).map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  style={{
+                    padding: "0.35rem 0.8rem",
+                    borderRadius: 8,
+                    border:
+                      filter === f
+                        ? "1px solid rgba(26,108,255,.4)"
+                        : "1px solid var(--glass-border)",
+                    background:
+                      filter === f ? "rgba(26,108,255,.15)" : "transparent",
+                    color: filter === f ? "#7eb8ff" : "var(--muted)",
+                    fontSize: "0.78rem",
+                    cursor: "pointer",
+                    fontFamily: "Syne",
+                    fontWeight: 600,
+                  }}
+                >
+                  {f.charAt(0).toUpperCase() + f.slice(1)}
+                </button>
+              ))}
+            </div>
+          }
+        />
+        {filtered.map((tx, i) => (
+          <div
+            key={tx.id}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "0.9rem 0",
+              borderBottom:
+                i < filtered.length - 1
+                  ? "1px solid rgba(100,160,255,.06)"
+                  : "none",
+            }}
+          >
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 12,
+                background:
+                  tx.type === "credit"
+                    ? "rgba(0,229,160,.12)"
+                    : "rgba(255,107,107,.1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1rem",
+                flexShrink: 0,
+              }}
+            >
+              {tx.category === "njangi"
+                ? "🤝"
+                : tx.category === "savings"
+                  ? "🔒"
+                  : tx.category === "swap"
+                    ? "🔄"
+                    : tx.category === "escrow"
+                      ? "🛡️"
+                      : tx.type === "credit"
+                        ? "↙️"
+                        : "↗️"}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div
+                style={{
+                  fontFamily: "Syne",
+                  fontWeight: 600,
+                  fontSize: "0.88rem",
+                  marginBottom: "0.2rem",
+                }}
+              >
+                {tx.description}
+              </div>
+              <div style={{ fontSize: "0.73rem", color: "var(--muted)" }}>
+                {new Date(tx.timestamp).toLocaleString()}
+                {tx.counterparty ? " · " + tx.counterparty : ""}
+              </div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div
+                style={{
+                  fontFamily: "Syne",
+                  fontWeight: 700,
+                  fontSize: "0.95rem",
+                  color: tx.type === "credit" ? "var(--green)" : "var(--text)",
+                  marginBottom: "0.25rem",
+                }}
+              >
+                {tx.type === "credit" ? "+" : "-"}
+                {formatCurrency(tx.amount, tx.currency)}
+              </div>
+              <Badge
+                variant={
+                  tx.status === "completed"
+                    ? "green"
+                    : tx.status === "pending"
+                      ? "gold"
+                      : "red"
+                }
+              >
+                {tx.status}
+              </Badge>
+            </div>
+          </div>
+        ))}
+      </GlassCard>
+
+      {modal && (
+        <Modal
+          title={
+            modal === "deposit"
+              ? "Deposit Funds"
+              : modal === "withdraw"
+                ? "Withdraw Funds"
+                : "Send Transfer"
+          }
+          onClose={() => setModal(null)}
+        >
+          {!done ? (
+            <>
+              {step === 1 && (
+                <>
+                  <FormField label="Currency">
+                    <TFSelect>
+                      <option>XAF</option>
+                      <option>NGN</option>
+                      <option>USDT</option>
+                    </TFSelect>
+                  </FormField>
+                  <FormField label="Amount">
+                    <TFInput type="number" placeholder="0.00" />
+                  </FormField>
+                  {modal === "transfer" && (
+                    <FormField label="Recipient">
+                      <TFInput placeholder="email, userid or +237..." />
+                    </FormField>
+                  )}
+                  {modal !== "transfer" && (
+                    <FormField label="Method">
+                      <TFSelect>
+                        <option>MTN Mobile Money</option>
+                        <option>Orange Money</option>
+                        <option>Bank Transfer</option>
+                      </TFSelect>
+                    </FormField>
+                  )}
+                  <ActionButton
+                    variant="primary"
+                    onClick={() => setStep(2)}
+                    style={{
+                      width: "100%",
+                      justifyContent: "center",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    Continue
+                  </ActionButton>
+                </>
+              )}
+              {step === 2 && (
+                <>
+                  <div
+                    style={{
+                      background: "rgba(26,108,255,.08)",
+                      border: "1px solid rgba(26,108,255,.2)",
+                      borderRadius: 12,
+                      padding: "1.25rem",
+                      marginBottom: "1.25rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "0.78rem",
+                        color: "var(--muted)",
+                        marginBottom: "0.4rem",
+                      }}
+                    >
+                      Review your {modal}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "Syne",
+                        fontSize: "1.4rem",
+                        fontWeight: 800,
+                        marginBottom: "0.5rem",
+                      }}
+                    >
+                      XAF 50,000
+                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "var(--muted)" }}>
+                      Fee: XAF 500 · Net: XAF 49,500
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", gap: "0.75rem" }}>
+                    <ActionButton
+                      variant="ghost"
+                      onClick={() => setStep(1)}
+                      style={{ flex: 1, justifyContent: "center" }}
+                    >
+                      Back
+                    </ActionButton>
+                    <ActionButton
+                      variant="primary"
+                      onClick={() => setDone(true)}
+                      style={{ flex: 1, justifyContent: "center" }}
+                    >
+                      Confirm
+                    </ActionButton>
+                  </div>
+                </>
+              )}
+            </>
+          ) : (
+            <div style={{ textAlign: "center", padding: "1.5rem 0" }}>
+              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>✅</div>
+              <h3
+                style={{
+                  fontFamily: "Syne",
+                  fontWeight: 700,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Done!
+              </h3>
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "0.88rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                Your transaction is being processed securely.
+              </p>
+              <ActionButton
+                variant="primary"
+                onClick={() => setModal(null)}
+                style={{ justifyContent: "center" }}
+              >
+                Close
+              </ActionButton>
+            </div>
+          )}
+        </Modal>
+      )}
+    </div>
+  );
+}

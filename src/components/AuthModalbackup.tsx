@@ -239,14 +239,14 @@ export default function AuthModal({ mode, onClose, onSwitch }: AuthModalProps) {
             )}
 
             {mode === "signup" && step === 1 && (
-              <Field label="Full name" type="text" placeholder="Amara Tanko" />
+              <Field label="Full name" type="text" placeholder="Tabotino J." />
             )}
             {mode === "signup" && step === 2 && (
               <>
                 <Field
                   label="Email address"
                   type="email"
-                  placeholder="amara@example.com"
+                  placeholder="tabotino@example.com"
                 />
                 <Field
                   label="Phone number"

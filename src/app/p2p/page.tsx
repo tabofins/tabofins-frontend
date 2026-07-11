@@ -699,7 +699,7 @@ export default function P2PPage() {
                   marginBottom: "1.5rem",
                 }}
               >
-                Your P2P order is now live. You'll be notified when a trader
+                Your P2P order is now live. You will be notified when a trader
                 matches it.
               </p>
               <ActionButton
