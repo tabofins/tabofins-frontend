@@ -489,11 +489,12 @@ export default function SavingsPage() {
       {(tab === "vaults" || tab === "group") && (
         <div>
           {tab === "vaults" && (
-            <SectionHeader
-              title="Group Savings"
-              sub="Collaborative vaults with shared goals"
-              style={{ marginTop: "2rem" }}
-            />
+            <div style={{ marginTop: "2rem" }}>
+              <SectionHeader
+                title="Group Savings"
+                sub="Collaborative vaults with shared goals"
+              />
+            </div>
           )}
           {groupVaults.length === 0 ? (
             <EmptyState
@@ -680,34 +681,38 @@ export default function SavingsPage() {
                     </div>
                   )}
 
-                  <StatRow
-                    style={{ marginTop: "1rem" }}
-                    items={[
-                      {
-                        label: "Lock Until",
-                        value: new Date(v.lockedUntil).toLocaleDateString(
-                          "en-GB",
-                          { month: "short", year: "numeric" },
-                        ),
-                      },
-                      {
-                        label: "Interest",
-                        value: `${v.interestRate}% p.a.`,
-                        color: "var(--green)",
-                      },
-                      {
-                        label: "Auto-Contrib",
-                        value:
-                          v.autoContribute && v.autoAmount
-                            ? `${formatCurrency(v.autoAmount, v.currency)}/mo`
-                            : "Off",
-                      },
-                      {
-                        label: "Early Penalty",
-                        value: `${v.earlyPenalty}% forfeiture`,
-                      },
-                    ]}
-                  />
+                  <div style={{ marginTop: "1rem" }}>
+                    <StatRow
+                      items={[
+                        {
+                          label: "Lock Until",
+                          value: new Date(v.lockedUntil).toLocaleDateString(
+                            "en-GB",
+                            {
+                              month: "short",
+                              year: "numeric",
+                            },
+                          ),
+                        },
+                        {
+                          label: "Interest",
+                          value: `${v.interestRate}% p.a.`,
+                          color: "var(--green)",
+                        },
+                        {
+                          label: "Auto-Contrib",
+                          value:
+                            v.autoContribute && v.autoAmount
+                              ? `${formatCurrency(v.autoAmount, v.currency)}/mo`
+                              : "Off",
+                        },
+                        {
+                          label: "Early Penalty",
+                          value: `${v.earlyPenalty}% forfeiture`,
+                        },
+                      ]}
+                    />
+                  </div>
 
                   {v.withdrawalHistory && v.withdrawalHistory.length > 0 && (
                     <div
