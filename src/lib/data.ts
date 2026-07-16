@@ -1185,7 +1185,7 @@ export const mockLeaderboard: LeaderboardEntry[] = [
 export interface KYCStep {
     id: string;
     label: string;
-    status: "completed" | "approved" | "pending" | "rejected" | "not_started";
+    status: "completed" | "verified" | "pending" | "rejected" ;
     updatedAt: string | null;
     note?: string;
 }

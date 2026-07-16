@@ -72,7 +72,7 @@ export default function FrontDeskPage() {
         d.id === id
           ? {
               ...d,
-              status: "approved" as const,
+              status: "verified" as const,
               reviewedAt: new Date().toISOString(),
               reviewedBy: "Agent Kalu",
             }
@@ -101,9 +101,9 @@ export default function FrontDeskPage() {
     setRejectReason("");
   }
 
-  const pending = localQueue.filter((d) => d.status === "pending").length;
-  const approved = localQueue.filter((d) => d.status === "approved").length;
-  const rejected = localQueue.filter((d) => d.status === "rejected").length;
+  const pending = localQueue.filter((d) => d.status === ("pending" as const)).length;
+  const approved = localQueue.filter((d) => d.status === ("verified" as const)).length;
+  const rejected = localQueue.filter((d) => d.status === ("rejected" as const)).length;
 
   return (
     <div>
@@ -128,7 +128,7 @@ export default function FrontDeskPage() {
           glow="gold"
         />
         <StatCard
-          label="Approved Today"
+          label="Verified Today"
           value={String(approved)}
           icon="✅"
           glow="green"
@@ -137,7 +137,7 @@ export default function FrontDeskPage() {
           label="Rejected Today"
           value={String(rejected)}
           icon="❌"
-          glow="red"
+          glow="gold"
         />
         <StatCard
           label="Total Users"
@@ -325,7 +325,7 @@ export default function FrontDeskPage() {
                   >
                     <Badge
                       variant={
-                        doc.status === "approved"
+                        doc.status === "verified"
                           ? "green"
                           : doc.status === "rejected"
                             ? "red"
@@ -428,7 +428,7 @@ export default function FrontDeskPage() {
             >
               <Badge
                 variant={
-                  preview.status === "approved"
+                  preview.status === "verified"
                     ? "green"
                     : preview.status === "rejected"
                       ? "red"
