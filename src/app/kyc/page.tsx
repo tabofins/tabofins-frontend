@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { mockKYCSteps } from "../../lib/data";
+import type { KYCStatus } from "../../lib/data"; // adjust the path if needed
+
 import {
   GlassCard,
   PageHeader,
@@ -47,9 +49,9 @@ export default function KYCPage() {
   const [showResubmit, setShowResubmit] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
 
-  const overallStatus = "verified"; // mock — could be "pending" | "rejected" | "verified"
+  const overallStatus = "verified" as "verified" | "pending" | "rejected"; // mock — could be "pending" | "rejected" | "verified"
   const completedSteps = mockKYCSteps.filter(
-    (s) => s.status === "completed",
+    (s) => s.status === "completed" || s.status === "verified",
   ).length;
   const progressPct = Math.round((completedSteps / mockKYCSteps.length) * 100);
 
@@ -144,7 +146,7 @@ export default function KYCPage() {
               {overallStatus === "verified" && (
                 <Badge variant="blue">🔒 Full Access</Badge>
               )}
-              {overallStatus === "pending"&& (
+              {overallStatus === "rejected" && (
                 <Badge variant="muted">⏱ Avg 30 min</Badge>
               )}
             </div>
@@ -290,7 +292,7 @@ export default function KYCPage() {
               steps={mockKYCSteps.map((s) => ({
                 id: s.id,
                 label: s.label,
-                status: s.status,
+                status: s.status === "verified" ? "completed" : s.status,
                 note: s.updatedAt
                   ? `Completed ${new Date(s.updatedAt).toLocaleDateString()}`
                   : undefined,

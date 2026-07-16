@@ -2399,7 +2399,7 @@ export function KYCTracker({
   steps: {
     id: string;
     label: string;
-    status: "completed" | "pending" | "rejected" | "not_started";
+    status: "completed" | "pending" | "rejected";
     note?: string;
   }[];
 }) {
