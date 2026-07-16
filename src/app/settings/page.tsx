@@ -564,21 +564,27 @@ export default function SettingsPage() {
             sub="Reduce spacing for more information density"
             right={<Toggle on={compact} onChange={setCompact} />}
           />
-          <FormField label="Timezone" style={{ marginTop: "1rem" }}>
-            <TFSelect
-              value={timezone}
-              onChange={(e) => setTimezone(e.target.value)}
-            >
-              <option value="Africa/Douala">Africa/Douala (WAT +01:00)</option>
-              <option value="Africa/Lagos">Africa/Lagos (WAT +01:00)</option>
-              <option value="Africa/Accra">Africa/Accra (GMT +00:00)</option>
-              <option value="Africa/Nairobi">
-                Africa/Nairobi (EAT +03:00)
-              </option>
-              <option value="Europe/London">Europe/London (GMT +00:00)</option>
-              <option value="UTC">UTC</option>
-            </TFSelect>
-          </FormField>
+          <div style={{ marginTop: "1rem" }}>
+            <FormField label="Timezone">
+              <TFSelect
+                value={timezone}
+                onChange={(e) => setTimezone(e.target.value)}
+              >
+                <option value="Africa/Douala">
+                  Africa/Douala (WAT +01:00)
+                </option>
+                <option value="Africa/Lagos">Africa/Lagos (WAT +01:00)</option>
+                <option value="Africa/Accra">Africa/Accra (GMT +00:00)</option>
+                <option value="Africa/Nairobi">
+                  Africa/Nairobi (EAT +03:00)
+                </option>
+                <option value="Europe/London">
+                  Europe/London (GMT +00:00)
+                </option>
+                <option value="UTC">UTC</option>
+              </TFSelect>
+            </FormField>
+          </div>
         </GlassCard>
       )}
 
