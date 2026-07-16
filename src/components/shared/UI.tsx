@@ -3006,12 +3006,14 @@ export function AlertBanner({
   message,
   action,
   onDismiss,
+  style: xs,
 }: {
   type?: "info" | "warning" | "error" | "success";
   title?: string;
   message: string;
   action?: React.ReactNode;
   onDismiss?: () => void;
+  style?: React.CSSProperties;
 }) {
   const meta = {
     info: {
@@ -3053,6 +3055,7 @@ export function AlertBanner({
         marginBottom: "1rem",
       }}
     >
+      <div style={{ ...xs }}></div>
       <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{meta.icon}</span>
       <div style={{ flex: 1 }}>
         {title && (
@@ -3063,6 +3066,7 @@ export function AlertBanner({
               fontSize: "0.87rem",
               color: meta.color,
               marginBottom: "0.25rem",
+    
             }}
           >
             {title}

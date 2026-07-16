@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   mockBalances,
   mockTransactions,
@@ -41,6 +42,7 @@ type ModalType =
   | null;
 
 export default function WalletPage() {
+  const router = useRouter();
   const [modal, setModal] = useState<ModalType>(null);
   const [showTxHistory, setShowTxHistory] = useState(false);
   const [txFilter, setTxFilter] = useState<"all" | "credit" | "debit">("all");
@@ -82,7 +84,6 @@ export default function WalletPage() {
             <ActionButton variant="ghost" onClick={() => openModal("connect")}>
               🔗 Connect External
             </ActionButton>
-            
           </div>
         }
       />
@@ -100,7 +101,7 @@ export default function WalletPage() {
           <ActionButton variant="ghost" onClick={() => openModal("transfer")}>
             ↗️ Send Money
           </ActionButton>
-          <ActionButton variant="ghost" onClick={() => openModal("swap")}>
+          <ActionButton variant="ghost" onClick={() => router.push("/swap")}>
             🔄 Swap Currency
           </ActionButton>
         </div>

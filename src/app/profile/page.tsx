@@ -1,17 +1,36 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { mockUser } from "@/src/lib/data";
+import {
+  mockUser,
+  mockReputation,
+  mockCommissions,
+  mockReferralTree,
+  formatCurrency,
+} from "../../lib/data";
 import {
   GlassCard,
   PageHeader,
   ActionButton,
   Badge,
   SectionHeader,
+  StatCard,
   FormField,
   TFInput,
-} from "@/src/components/shared/UI";
-import { Avatar } from "@/src/components/shared/AuthenticatedLayout";
+  AlertBanner,
+  StatRow,
+  InfoRow,
+  ProgressBar,
+  ReferralCodeBlock,
+} from "../../components/shared/UI";
+import { Avatar } from "../../components/shared/AuthenticatedLayout";
+
+const LEVEL_COLORS: Record<string, string> = {
+  Bronze: "#cd7f32",
+  Silver: "#c0c0c0",
+  Gold: "#ffd700",
+  Platinum: "#b9f2ff",
+};
 
 export default function ProfilePage() {
   const [editing, setEditing] = useState(false);
@@ -23,11 +42,17 @@ export default function ProfilePage() {
     setTimeout(() => setSaved(false), 2500);
   }
 
+  const levelColor = LEVEL_COLORS[mockReputation.level] ?? "var(--gold2)";
+  const referralLink = `https://tabofins.com/join?ref=${mockUser.referralCode}`;
+  const totalReferralEarned = mockCommissions
+    .filter((c) => c.status === "paid")
+    .reduce((s, c) => s + c.amount, 0);
+
   return (
     <div>
       <PageHeader
         title="My Profile"
-        sub="Manage your personal information and verification status."
+        sub="Manage your personal information, reputation, and referrals."
       />
 
       <div
@@ -37,12 +62,12 @@ export default function ProfilePage() {
           gap: "1.5rem",
         }}
       >
-        {/* Left — Profile card + Trust score */}
+        {/* ── Left column ── */}
         <div
           style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
+          {/* Identity card */}
           <GlassCard hover={false} glow="blue">
-            {/* Avatar & Name */}
             <div
               style={{
                 textAlign: "center",
@@ -93,10 +118,19 @@ export default function ProfilePage() {
                 style={{
                   color: "var(--muted)",
                   fontSize: "0.82rem",
+                  marginBottom: "0.35rem",
+                }}
+              >
+                {mockUser.occupation}
+              </p>
+              <p
+                style={{
+                  color: "var(--muted)",
+                  fontSize: "0.8rem",
                   marginBottom: "0.85rem",
                 }}
               >
-                {mockUser.email}
+                {mockUser.city}, {mockUser.country}
               </p>
               <div
                 style={{
@@ -108,18 +142,28 @@ export default function ProfilePage() {
               >
                 <Badge variant="green">✓ KYC Verified</Badge>
                 <Badge variant="blue">🇨🇲 {mockUser.country}</Badge>
+                <Badge variant="gold">{mockReputation.level} Member</Badge>
               </div>
             </div>
 
-            {/* Quick info */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "0.65rem",
-              }}
-            >
-              {[
+            {/* Bio */}
+            {mockUser.bio && (
+              <div
+                style={{
+                  marginBottom: "1.25rem",
+                  fontSize: "0.82rem",
+                  color: "var(--muted)",
+                  lineHeight: 1.6,
+                  fontStyle: "italic",
+                }}
+              >
+                {mockUser.bio}
+              </div>
+            )}
+
+            {/* Quick stats */}
+            <StatRow
+              items={[
                 {
                   label: "Member Since",
                   value: new Date(mockUser.joinedAt).toLocaleDateString(
@@ -127,40 +171,27 @@ export default function ProfilePage() {
                     { month: "short", year: "numeric" },
                   ),
                 },
-                { label: "KYC Status", value: "Verified ✓" },
-                { label: "Phone", value: mockUser.phone },
-                { label: "Country", value: mockUser.country },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  style={{
-                    padding: "0.65rem 0.85rem",
-                    background: "rgba(255,255,255,.03)",
-                    borderRadius: 10,
-                    border: "1px solid var(--glass-border)",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "0.67rem",
-                      color: "var(--muted)",
-                      marginBottom: "0.2rem",
-                    }}
-                  >
-                    {item.label}
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "Syne",
-                      fontWeight: 600,
-                      fontSize: "0.8rem",
-                    }}
-                  >
-                    {item.value}
-                  </div>
-                </div>
-              ))}
-            </div>
+                { label: "KYC", value: "Verified ✓", color: "var(--green)" },
+                {
+                  label: "Trust Score",
+                  value: `${mockUser.trustScore}/100`,
+                  color: "var(--gold2)",
+                },
+                {
+                  label: "Success Rate",
+                  value: `${mockReputation.successRate}%`,
+                  color: "var(--green)",
+                },
+                {
+                  label: "Total Trades",
+                  value: String(mockReputation.totalTrades),
+                },
+                {
+                  label: "Avg Response",
+                  value: mockReputation.avgResponseTime,
+                },
+              ]}
+            />
           </GlassCard>
 
           {/* Trust Score */}
@@ -169,7 +200,6 @@ export default function ProfilePage() {
             <div
               style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}
             >
-              {/* SVG circle gauge */}
               <div
                 style={{
                   position: "relative",
@@ -191,7 +221,7 @@ export default function ProfilePage() {
                     cy="18"
                     r="15.9"
                     fill="none"
-                    stroke="rgba(255,255,255,.06)"
+                    stroke="rgba(255,255,255,.07)"
                     strokeWidth="2.5"
                   />
                   <circle
@@ -199,15 +229,15 @@ export default function ProfilePage() {
                     cy="18"
                     r="15.9"
                     fill="none"
-                    stroke="url(#sg)"
+                    stroke="url(#tsg)"
                     strokeWidth="2.5"
                     strokeDasharray={`${mockUser.trustScore} ${100 - mockUser.trustScore}`}
                     strokeLinecap="round"
                   />
                   <defs>
-                    <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#f0b429" />
-                      <stop offset="100%" stopColor="#00e5a0" />
+                    <linearGradient id="tsg" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor={levelColor} />
+                      <stop offset="100%" stopColor="var(--green)" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -226,10 +256,7 @@ export default function ProfilePage() {
                       fontFamily: "Syne",
                       fontWeight: 800,
                       fontSize: "1.5rem",
-                      background:
-                        "linear-gradient(135deg,var(--gold2),var(--green))",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
+                      color: levelColor,
                     }}
                   >
                     {mockUser.trustScore}
@@ -239,66 +266,147 @@ export default function ProfilePage() {
                   </div>
                 </div>
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <div
                   style={{
                     fontFamily: "Syne",
                     fontWeight: 700,
-                    fontSize: "1rem",
-                    color: "var(--gold2)",
+                    fontSize: "0.95rem",
+                    color: levelColor,
                     marginBottom: "0.4rem",
                   }}
                 >
-                  Excellent
+                  {mockReputation.level} Standing
                 </div>
-                <p
-                  style={{
-                    fontSize: "0.78rem",
-                    color: "var(--muted)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  Your trust score is based on payment history, KYC completion,
-                  and community standing.
-                </p>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "0.35rem",
-                    marginTop: "0.75rem",
                   }}
                 >
                   {[
-                    ["KYC Verified", "100%"],
-                    ["Payment History", "97%"],
-                    ["Community", "85%"],
-                  ].map(([l, v]) => (
+                    {
+                      label: "KYC Score",
+                      value: "100%",
+                      color: "var(--green)",
+                    },
+                    {
+                      label: "Payment History",
+                      value: `${mockReputation.successRate}%`,
+                      color: "var(--green)",
+                    },
+                    {
+                      label: "Positive Reviews",
+                      value: String(mockReputation.positiveReviews),
+                      color: "var(--green)",
+                    },
+                    {
+                      label: "Disputes Lost",
+                      value: String(mockReputation.disputesLost),
+                      color:
+                        mockReputation.disputesLost > 0
+                          ? "#ff8080"
+                          : "var(--green)",
+                    },
+                  ].map((row) => (
                     <div
-                      key={l}
+                      key={row.label}
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        fontSize: "0.72rem",
+                        fontSize: "0.75rem",
                       }}
                     >
-                      <span style={{ color: "var(--muted)" }}>{l}</span>
-                      <span style={{ color: "var(--green)", fontWeight: 600 }}>
-                        {v}
+                      <span style={{ color: "var(--muted)" }}>{row.label}</span>
+                      <span
+                        style={{
+                          color: row.color,
+                          fontWeight: 600,
+                          fontFamily: "Syne",
+                        }}
+                      >
+                        {row.value}
                       </span>
                     </div>
+                  ))}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "0.4rem",
+                    marginTop: "0.75rem",
+                  }}
+                >
+                  {mockReputation.badges.map((b) => (
+                    <Badge key={b} variant="blue">
+                      {b}
+                    </Badge>
                   ))}
                 </div>
               </div>
             </div>
           </GlassCard>
+
+          {/* KYC Status */}
+          <GlassCard hover={false} glow="green">
+            <SectionHeader
+              title="Identity Verification (KYC)"
+              action={
+                <Link href="/kyc">
+                  <ActionButton variant="ghost" size="sm">
+                    Manage
+                  </ActionButton>
+                </Link>
+              }
+            />
+            {[
+              { label: "National ID", detail: "Verified — Jun 2025" },
+              { label: "Selfie + Liveness", detail: "Biometric 98.4% match" },
+              { label: "Proof of Address", detail: "Utility bill accepted" },
+              { label: "Phone Verification", detail: mockUser.phone },
+              { label: "Email Verification", detail: mockUser.email },
+            ].map((item) => (
+              <div
+                key={item.label}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.85rem",
+                  padding: "0.75rem 1rem",
+                  background: "rgba(0,229,160,.05)",
+                  border: "1px solid rgba(0,229,160,.15)",
+                  borderRadius: 12,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <span>✅</span>
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      fontFamily: "Syne",
+                      fontWeight: 600,
+                      fontSize: "0.85rem",
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--muted)" }}>
+                    {item.detail}
+                  </div>
+                </div>
+                <Badge variant="green">OK</Badge>
+              </div>
+            ))}
+          </GlassCard>
         </div>
 
-        {/* Right — Edit info + KYC + Account links */}
+        {/* ── Right column ── */}
         <div
           style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
         >
-          {/* Personal Information */}
+          {/* Edit personal info */}
           <GlassCard hover={false}>
             <SectionHeader
               title="Personal Information"
@@ -322,7 +430,7 @@ export default function ProfilePage() {
                     size="sm"
                     onClick={() => (editing ? handleSave() : setEditing(true))}
                   >
-                    {editing ? "Save Changes" : "✏️ Edit"}
+                    {editing ? "Save" : "✏️ Edit"}
                   </ActionButton>
                   {editing && (
                     <ActionButton
@@ -338,9 +446,11 @@ export default function ProfilePage() {
             />
             {[
               { label: "Full Name", value: mockUser.name, type: "text" },
-              { label: "Email Address", value: mockUser.email, type: "email" },
-              { label: "Phone Number", value: mockUser.phone, type: "tel" },
+              { label: "Email", value: mockUser.email, type: "email" },
+              { label: "Phone", value: mockUser.phone, type: "tel" },
               { label: "Country", value: mockUser.country, type: "text" },
+              { label: "City", value: mockUser.city, type: "text" },
+              { label: "Occupation", value: mockUser.occupation, type: "text" },
             ].map((f) => (
               <FormField key={f.label} label={f.label}>
                 <TFInput
@@ -355,150 +465,232 @@ export default function ProfilePage() {
                 />
               </FormField>
             ))}
+            <FormField label="Bio">
+              <textarea
+                readOnly={!editing}
+                defaultValue={mockUser.bio}
+                className="form-input"
+                style={{
+                  resize: "vertical",
+                  minHeight: 70,
+                  opacity: editing ? 1 : 0.65,
+                  background: editing ? undefined : "rgba(255,255,255,.03)",
+                }}
+              />
+            </FormField>
           </GlassCard>
 
-          {/* KYC Verification */}
-          <GlassCard hover={false} glow="green">
-            <SectionHeader title="Identity Verification (KYC)" />
+          {/* Platform preferences */}
+          <GlassCard hover={false}>
+            <SectionHeader title="Platform Preferences" />
+            <StatRow
+              items={[
+                {
+                  label: "Language",
+                  value:
+                    mockUser.language === "en" ? "English" : mockUser.language,
+                },
+                { label: "Default Currency", value: mockUser.currency },
+                {
+                  label: "Theme",
+                  value: mockUser.theme === "dark" ? "Dark (Premium)" : "Light",
+                },
+                {
+                  label: "2FA",
+                  value: mockUser.twoFA ? "Enabled ✓" : "Disabled",
+                  color: mockUser.twoFA ? "var(--green)" : "#ff8080",
+                },
+                {
+                  label: "Email Verified",
+                  value: mockUser.emailVerified ? "Yes" : "No",
+                  color: mockUser.emailVerified ? "var(--green)" : "#ff8080",
+                },
+                {
+                  label: "Phone Verified",
+                  value: mockUser.phoneVerified ? "Yes" : "No",
+                  color: mockUser.phoneVerified ? "var(--green)" : "#ff8080",
+                },
+              ]}
+            />
+            <ActionButton
+              variant="ghost"
+              size="sm"
+              style={{ marginTop: "1rem" }}
+            >
+              <Link
+                href="/settings"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                ⚙️ Manage in Settings →
+              </Link>
+            </ActionButton>
+          </GlassCard>
+
+          {/* Referral snapshot */}
+          <GlassCard hover={false} glow="gold">
+            <SectionHeader
+              title="Referral Overview"
+              action={
+                <Link href="/profile/referral">
+                  <ActionButton variant="primary" size="sm">
+                    Full Dashboard →
+                  </ActionButton>
+                </Link>
+              }
+            />
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.7rem",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "0.75rem",
+                marginBottom: "1.25rem",
               }}
             >
               {[
-                { label: "National ID", detail: "Verified — Jun 2025" },
                 {
-                  label: "Selfie Verification",
-                  detail: "Biometric match confirmed",
+                  label: "Total Referrals",
+                  value: String(mockUser.totalReferrals),
+                  color: "#7eb8ff",
                 },
-                { label: "Address Proof", detail: "Utility bill accepted" },
-                { label: "Phone Verification", detail: mockUser.phone },
-              ].map((item) => (
+                {
+                  label: "Total Earned",
+                  value: formatCurrency(mockUser.referralEarnings, "XAF"),
+                  color: "var(--gold2)",
+                },
+                {
+                  label: "This Month",
+                  value: formatCurrency(totalReferralEarned, "XAF"),
+                  color: "var(--green)",
+                },
+                {
+                  label: "Active Network",
+                  value: String(
+                    mockReferralTree.filter((r) => r.status === "active")
+                      .length,
+                  ),
+                  color: "var(--green)",
+                },
+              ].map((s) => (
                 <div
-                  key={item.label}
+                  key={s.label}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.85rem",
-                    padding: "0.8rem 1rem",
-                    background: "rgba(0,229,160,.05)",
-                    border: "1px solid rgba(0,229,160,.15)",
-                    borderRadius: 12,
+                    padding: "0.75rem",
+                    background: "rgba(255,255,255,.03)",
+                    borderRadius: 10,
+                    border: "1px solid var(--glass-border)",
+                    textAlign: "center",
                   }}
                 >
-                  <span style={{ fontSize: "1.1rem" }}>✅</span>
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        fontFamily: "Syne",
-                        fontWeight: 600,
-                        fontSize: "0.85rem",
-                      }}
-                    >
-                      {item.label}
-                    </div>
-                    <div style={{ fontSize: "0.72rem", color: "var(--muted)" }}>
-                      {item.detail}
-                    </div>
+                  <div
+                    style={{
+                      fontFamily: "Syne",
+                      fontWeight: 800,
+                      fontSize: "0.95rem",
+                      color: s.color,
+                      marginBottom: "0.2rem",
+                    }}
+                  >
+                    {s.value}
                   </div>
-                  <Badge variant="green">Verified</Badge>
+                  <div style={{ fontSize: "0.68rem", color: "var(--muted)" }}>
+                    {s.label}
+                  </div>
                 </div>
               ))}
             </div>
+            <ReferralCodeBlock
+              code={mockUser.referralCode}
+              link={referralLink}
+            />
           </GlassCard>
 
-          {/* Account shortcuts */}
+          {/* Account actions */}
           <GlassCard hover={false}>
             <SectionHeader title="Account & Security" />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.5rem",
-              }}
-            >
-              {[
-                {
-                  icon: "🔒",
-                  label: "Change Password",
-                  sub: "Last changed 3 months ago",
-                  href: "/settings",
-                },
-                {
-                  icon: "🔐",
-                  label: "Two-Factor Authentication",
-                  sub: "Enabled via SMS",
-                  href: "/settings",
-                },
-                {
-                  icon: "📱",
-                  label: "Trusted Devices",
-                  sub: "2 active sessions",
-                  href: "/settings",
-                },
-                {
-                  icon: "🌐",
-                  label: "Language",
-                  sub: "English (default)",
-                  href: "/settings",
-                },
-                {
-                  icon: "🚪",
-                  label: "Sign Out All Devices",
-                  sub: "Revoke all active sessions",
-                  href: "/",
-                  danger: true,
-                },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.85rem",
-                    padding: "0.85rem 1rem",
-                    background: "rgba(255,255,255,.03)",
-                    borderRadius: 12,
-                    border: "1px solid var(--glass-border)",
-                    textDecoration: "none",
-                    transition: "all .2s",
-                  }}
-                  onMouseOver={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "rgba(26,108,255,.3)")
-                  }
-                  onMouseOut={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.borderColor =
-                      "")
-                  }
-                >
-                  <span style={{ fontSize: "1.1rem" }}>{item.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        fontFamily: "Syne",
-                        fontWeight: 600,
-                        fontSize: "0.85rem",
-                        color: (item as { danger?: boolean }).danger
-                          ? "#ff8080"
-                          : "var(--text)",
-                      }}
-                    >
-                      {item.label}
-                    </div>
-                    <div style={{ fontSize: "0.72rem", color: "var(--muted)" }}>
-                      {item.sub}
-                    </div>
+            {[
+              {
+                icon: "🔒",
+                label: "Change Password",
+                sub: "Last changed 3 months ago",
+                href: "/settings",
+              },
+              {
+                icon: "🔐",
+                label: "Two-Factor Authentication",
+                sub: "Enabled via SMS",
+                href: "/settings",
+              },
+              {
+                icon: "📱",
+                label: "Trusted Devices",
+                sub: "2 active sessions",
+                href: "/settings",
+              },
+              {
+                icon: "🪪",
+                label: "KYC Status",
+                sub: "Verified — Full access",
+                href: "/kyc",
+              },
+              {
+                icon: "🎁",
+                label: "Referral Programme",
+                sub: `${mockUser.totalReferrals} referrals · ${formatCurrency(mockUser.referralEarnings, "XAF")} earned`,
+                href: "/profile/referral",
+              },
+              {
+                icon: "🚪",
+                label: "Sign Out All Devices",
+                sub: "Revoke all active sessions",
+                href: "/",
+                danger: true,
+              },
+            ].map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.85rem",
+                  padding: "0.85rem 1rem",
+                  background: "rgba(255,255,255,.03)",
+                  borderRadius: 12,
+                  border: "1px solid var(--glass-border)",
+                  textDecoration: "none",
+                  transition: "all .2s",
+                  marginBottom: "0.5rem",
+                }}
+                onMouseOver={(e) =>
+                  ((e.currentTarget as HTMLAnchorElement).style.borderColor =
+                    "rgba(26,108,255,.3)")
+                }
+                onMouseOut={(e) =>
+                  ((e.currentTarget as HTMLAnchorElement).style.borderColor =
+                    "")
+                }
+              >
+                <span style={{ fontSize: "1.1rem" }}>{item.icon}</span>
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      fontFamily: "Syne",
+                      fontWeight: 600,
+                      fontSize: "0.85rem",
+                      color: (item as { danger?: boolean }).danger
+                        ? "#ff8080"
+                        : "var(--text)",
+                    }}
+                  >
+                    {item.label}
                   </div>
-                  <span style={{ color: "var(--muted)", fontSize: "1rem" }}>
-                    ›
-                  </span>
-                </Link>
-              ))}
-            </div>
+                  <div style={{ fontSize: "0.72rem", color: "var(--muted)" }}>
+                    {item.sub}
+                  </div>
+                </div>
+                <span style={{ color: "var(--muted)" }}>›</span>
+              </Link>
+            ))}
           </GlassCard>
         </div>
       </div>

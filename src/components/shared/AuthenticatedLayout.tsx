@@ -15,6 +15,7 @@ const NAV = [
   { href: "/notifications", icon: "🔔", label: "Notifications" },
   { href: "/profile", icon: "👤", label: "Profile" },
   { href: "/settings", icon: "⚙️", label: "Settings" },
+  //{ href: "/kyc/frontdesk", icon: "🔄", label: "FrontdeskStaff" },
 ];
 
 export function Avatar({
